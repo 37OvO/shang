@@ -1,6 +1,6 @@
 @font-face {
   font-family: "CuteFont";
-  src: url("../assets/fonts/cute.ttf") format("truetype");
+  src: url("cute.ttf") format("truetype");
   font-display: swap;
 }
 

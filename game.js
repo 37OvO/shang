@@ -131,7 +131,7 @@
 
   const images = NAMES.map((_, i) => {
     const img = new Image();
-    img.src = "assets/balls/" + String(i + 1).padStart(2, "0") + ".png";
+    img.src = String(i + 1).padStart(2, "0") + ".png";
     img.onload = () => {
       if (i === state.nextLevel) drawNext();
     };
@@ -779,7 +779,7 @@
       item.dataset.name = NAMES[i];
       item.style.borderColor = RINGS[i];
       const img = document.createElement("img");
-      img.src = "assets/balls/" + String(i + 1).padStart(2, "0") + ".png";
+      img.src = String(i + 1).padStart(2, "0") + ".png";
       img.alt = NAMES[i];
       item.appendChild(img);
       frag.appendChild(item);
