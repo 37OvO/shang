@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<meta name="theme-color" content="#f6f1e8" />
+<title>合成女仆酱 · 蓝毛女仆合成小游戏</title>
+<link rel="icon" href="assets/balls/01.png" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="bg-blob blob-a"></div>
+<div class="bg-blob blob-b"></div>
+<div class="bg-blob blob-c"></div>
+
+<div class="app">
+  <main class="stage">
+    <div class="board-wrap" id="boardWrap">
+      <canvas id="game" aria-label="合成女仆酱游戏区域" role="img"></canvas>
+
+      <div class="danger-tip" id="dangerTip">堆太高啦！</div>
+
+      <div class="gameover" id="gameover" aria-hidden="true">
+        <div class="gameover-card" role="dialog" aria-modal="true" aria-labelledby="goTitle">
+          <div class="go-emoji">🐋</div>
+          <h2 id="goTitle">游戏结束</h2>
+          <p class="go-score-line">本局得分 <strong id="goScore">0</strong></p>
+          <p class="go-best-line">最高分 <span id="goBest">0</span></p>
+          <p class="go-nick">昵称：<strong id="goName">默认用户</strong>
+            <button id="goChangeName" class="link-btn" type="button">改昵称</button>
+          </p>
+          <div class="go-actions">
+            <button id="goLeaderboard" class="btn ghost" type="button">🏆 排行榜</button>
+            <button id="goRestart" class="btn primary" type="button">再来一局</button>
+          </div>
+          <button id="goRevive" class="btn revive hidden" type="button">
+            🪙 使用女仆币复活（<span id="reviveCount">0</span>）
+          </button>
+          <p class="go-tip">按 R 键也可重新开始</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <aside class="panel">
+    <header class="hero">
+      <h1>合成女仆酱</h1>
+      <p>相同的女仆撞在一起，越合越大</p>
+    </header>
+
+    <section class="score-row">
+      <div class="score-card">
+        <span class="score-label">分数</span>
+        <strong id="score" class="score-value">0</strong>
+      </div>
+      <div class="score-card">
+        <span class="score-label">最高分</span>
+        <strong id="best" class="score-value best">0</strong>
+      </div>
+    </section>
+
+    <section class="card next-card">
+      <div class="card-head">
+        <span>下一个</span>
+        <span class="next-name" id="nextName">小女仆</span>
+      </div>
+      <div class="next-preview">
+        <canvas id="nextCanvas" width="240" height="240" aria-hidden="true"></canvas>
+      </div>
+    </section>
+
+    <section class="card chart-card">
+      <div class="card-head"><span>合成表</span><span class="chart-count">11 级</span></div>
+      <div class="merge-chart" id="mergeChart" aria-label="合成顺序"></div>
+      <p class="chart-tip">
+        ✨ 两只<strong>暴走鲸</strong>撞在一起会一起炸掉，换
+        <strong>999 分</strong> + <strong>一枚女仆币</strong>
+      </p>
+    </section>
+
+    <section class="coin-card">
+      <span class="coin-icon">🪙</span>
+      <div class="coin-copy">
+        <b>女仆币 <span id="coinCount">0</span></b>
+        <small>每 2000 分攒一枚 · 只在本局有效</small>
+      </div>
+    </section>
+
+    <section class="actions">
+      <button id="btnLeaderboard" class="btn ghost" type="button">🏆 排行榜</button>
+      <button id="btnSound" class="btn ghost sound-btn" type="button" aria-pressed="true">🔊 音效开</button>
+      <button id="btnRestart" class="btn primary" type="button">↻ 重开</button>
+    </section>
+
+    <p class="hint">
+      鼠标：移动瞄准、点击投放；触屏：拖动瞄准、松手投放。<br />
+      ← → 微调位置，空格投放，R 重开。
+    </p>
+  </aside>
+</div>
+
+<dialog id="lbDialog" class="modal">
+  <form method="dialog" class="modal-card">
+    <header class="modal-head">
+      <h2>🏆 最近高手榜</h2>
+      <button class="icon-btn" value="close" aria-label="关闭">✕</button>
+    </header>
+
+    <label class="nick-field">
+      <span>我的昵称</span>
+      <input id="nickInput" type="text" maxlength="12" placeholder="默认用户" autocomplete="off" />
+      <button id="saveNick" class="btn mini" type="button">保存</button>
+    </label>
+
+    <ol class="lb-list" id="lbList"></ol>
+
+    <footer class="modal-foot">
+      <span>只取最近 20 次提交，成绩保存在本机</span>
+      <button id="btnRefreshLb" class="btn mini" type="button">刷新</button>
+    </footer>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/matter.min.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
